@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { QueryDto } from './dto/query.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class QuestionService {
@@ -14,8 +15,32 @@ export class QuestionService {
     return question;
   }
 
-  async findAll() {
+  async findAll(q: QueryDto) {
+    console.log(q);
     const questions = await this.prisma.question.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: q.search ?? "",
+            },
+          },
+          {
+            description: {
+              contains: q.search ?? "",
+            },
+          },
+          {
+            answers: {
+              some: {
+                description: {
+                  contains: q.search ?? "",
+                },
+              },
+            },
+          },
+        ],
+      },
       orderBy: [
         {
           createdAt: 'desc',

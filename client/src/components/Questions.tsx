@@ -8,11 +8,16 @@ import { QuestionType } from "@/types";
 import QuestionForm from "./QuestionForm";
 import Question from "@/components/Question";
 import { useGetQuestionsQuery } from "@/store/question";
+import { useDebounce } from "@/hooks/useDebounce";
 
 const Questions = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const debouncedSearch = useDebounce(searchQuery.trim(), 1000);
 
   const { data } = useGetQuestionsQuery({
+    search: debouncedSearch,
     refetchOnMountOrArgChange: true,
   });
 
@@ -25,6 +30,7 @@ const Questions = () => {
               type="text"
               name="discount"
               placeholder="Search ..."
+              onChange={({ target }) => setSearchQuery(target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 px-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
             <span className="absolute top-[10px] right-[10px]">

@@ -12,9 +12,10 @@ const questionApi = apiSlice.injectEndpoints({
         invalidatesTags: ["question"],
       }),
       getQuestions: builder.query<any, any>({
-        query: () => ({
-          url: `/question`,
-        }),
+        query({ search }) {
+          if (!search) return `/question`;
+          return `/question?search=${search}`;
+        },
         providesTags: ["question"],
       }),
       updateQuestion: builder.mutation({
