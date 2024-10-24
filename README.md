@@ -1,6 +1,6 @@
 # Next.js & NestJS App
 
-This project consists of a **Next.js** frontend and a **NestJS** backend using Prisma **Prisma** as the ORM, both running locally, with the **PostgreSQL** database running inside a Docker container.
+This project consists of a **Next.js** frontend and a **NestJS** backend using **Prisma** as the ORM, both running locally, with the **PostgreSQL** database running inside a Docker container.
 
 ## Prerequisites
 
@@ -13,12 +13,12 @@ Ensure you have the following installed:
 
 ```
 root/
-├── backend/                # NestJS application
+├── server/                # NestJS application
 │   ├── prisma/             # Prisma schema and migrations
 │   ├── src/
 │   └── .env
-├── frontend/               # Next.js application
-│   ├── pages/
+├── client/               # Next.js application
+│   ├── src/
 │   └── .env.local
 ├── docker-compose.yml      # Docker Compose for the database
 └── README.md               # This file
@@ -33,8 +33,8 @@ We use Docker to manage the **PostgreSQL** database, while the frontend and back
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
-   cd yourproject
+   git clone https://github.com/mizonaise/challeng.git
+   cd challeng
    ```
 
 2. **Start the database with Docker:**
